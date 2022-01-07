@@ -1,6 +1,10 @@
 pipeline {
   agent { label 'windows' }
 
+  environment {
+    SONARSCANNER = tool 'SonarScannerMSBuild'
+  }
+
   options {
     skipDefaultCheckout(true)
   }
@@ -18,9 +22,12 @@ pipeline {
       }
     }
 
-    stage('Build') {
-      steps {
-        bat '.\\buildCI.bat'
+    stage('Build & Execute SonarQube') {
+      withSonarQubeEnv('SonarQube') {
+        bat '${ SONARSCANNER }\\SonarQube.Scanner.MSBuild.exe begin /k:FileHashGenerator'
+        bat 'nuget restore'
+        bat 'MSBuild.exe /t:Rebuild'
+        bat '${ SONARSCANNER }\\SonarQube.Scanner.MSBuild.exe end'
       }
     }
   }
