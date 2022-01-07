@@ -22,13 +22,13 @@ pipeline {
       }
     }
 
-    stage('Build & Execute SonarQube') {
+    stage('Build & Execute SonarQube analysis') {
       steps {
         withSonarQubeEnv('SonarQube') {
           bat 'nuget restore'
-          bat "${SONARSCANNER}\\SonarQube.Scanner.MSBuild.exe begin /k:FileHashGenerator"
+          bat '$SONARSCANNER\\SonarQube.Scanner.MSBuild.exe begin /k:FileHashGenerator'
           bat 'MSBuild.exe /t:Rebuild'
-          bat "${SONARSCANNER}\\SonarQube.Scanner.MSBuild.exe end"
+          bat '$SONARSCANNER\\SonarQube.Scanner.MSBuild.exe end'
         }
       }
     }
