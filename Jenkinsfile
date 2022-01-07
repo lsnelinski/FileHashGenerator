@@ -26,9 +26,9 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           bat 'nuget restore'
-          bat "${SONARSCANNER}\\SonarQube.Scanner.MSBuild.exe begin /k:FileHashGenerator"
+          bat "${SONARSCANNER}\\SonarScanner.MSBuild.exe begin /k:FileHashGenerator"
           bat 'MSBuild.exe /t:Rebuild'
-          bat "${SONARSCANNER}\\SonarQube.Scanner.MSBuild.exe end"
+          bat "${SONARSCANNER}\\SonarScanner.MSBuild.exe end"
         }
       }
     }
