@@ -1,15 +1,25 @@
 pipeline {
-  agent "windows"
+  agent { label 'windows' }
 
   options {
     skipDefaultCheckout(true)
   }
 
   stages {
-    stage('Build') {
+    stage('Cleanup Workspace') {
       steps {
         cleanWS()
+      }
+    }
+
+    stage('Checkout GitHub') {
+      steps {
         checkout scm
+      }
+    }
+    
+    stage('Build') {
+      steps {
         bat '.\\buildCI.bat'
       }
     }
