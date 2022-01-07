@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cleanup Workspace') {
       steps {
-        cleanWS()
+        cleanWs()
       }
     }
 
@@ -17,7 +17,7 @@ pipeline {
         checkout scm
       }
     }
-    
+
     stage('Build') {
       steps {
         bat '.\\buildCI.bat'
