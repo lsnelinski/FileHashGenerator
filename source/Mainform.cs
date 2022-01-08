@@ -23,7 +23,7 @@ namespace FileHashGenerator
           "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         if (result == DialogResult.Yes)
         {
-          Process.Start("notepad.exe", fileHashGenerator.LogFileLocation);
+          Process.Start(@"C:\Windows\System32\notepad.exe", fileHashGenerator.LogFileLocation);
         }
       }
       catch (Exception exception)

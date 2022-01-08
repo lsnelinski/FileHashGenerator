@@ -9,7 +9,7 @@ namespace FileHashGenerator
     #region Variables
     private const string LOG_DIRECTORY = "fileHashGenerator_Log";
     private const string LOG_FILENAME = "hashes.log";
-    private string _currentAppDirectory;
+    readonly string _currentAppDirectory;
 
     #endregion
 
