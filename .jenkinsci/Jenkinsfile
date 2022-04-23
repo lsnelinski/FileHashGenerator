@@ -3,6 +3,7 @@ pipeline {
 
   environment {
     SONARSCANNER = tool 'SonarScannerMSBuild'
+    PROJECTNAME = 'FileHashGenerator'
   }
 
   options {
@@ -26,7 +27,7 @@ pipeline {
       steps {
         withSonarQubeEnv('SonarQube') {
           bat 'nuget restore'
-          bat "dotnet ${SONARSCANNER}\\SonarScanner.MSBuild.dll begin /k:\"FileHashGenerator\""
+          bat "dotnet ${SONARSCANNER}\\SonarScanner.MSBuild.dll begin /k:\"${PROJECTNAME}\""
           bat "dotnet build"
           bat "dotnet ${SONARSCANNER}\\SonarScanner.MSBuild.dll end"
         }
