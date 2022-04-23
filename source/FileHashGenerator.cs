@@ -69,18 +69,18 @@ namespace FileHashGenerator
     /// <summary>
     ///   Generates the file hashes in the current app directory.
     /// </summary>
-    /// <param name="algorithm">An algorithm corresponding to the <seealso cref="AlgorithmEnum">AlgorithmEnum</seealso>.</param>
+    /// <param name="algorithm">An algorithm corresponding to the <seealso cref="Algorithms">Algorithms</seealso>.</param>
     /// <exception cref="Exception">Throws an exception if the algorithm is unknown.</exception>
-    public void GenerateHashes(AlgorithmEnum algorithm)
+    public void GenerateHashes(Algorithms algorithm)
     {
       HashAlgorithm cryptoProvider;
 
       switch (algorithm)
       {
-        case AlgorithmEnum.SHA1:
+        case Algorithms.SHA1:
           cryptoProvider = new SHA1CryptoServiceProvider();
           break;
-        case AlgorithmEnum.SHA256:
+        case Algorithms.SHA256:
           cryptoProvider = SHA256.Create();
           break;
         default:
@@ -109,7 +109,7 @@ namespace FileHashGenerator
       }
       else
       {
-        throw new Exception($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
+        throw new ArgumentException($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
       }
 
       cryptoProvider.Dispose();

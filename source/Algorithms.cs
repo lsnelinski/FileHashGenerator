@@ -3,7 +3,7 @@
   /// <summary>
   ///   The algorithms that the program can use.
   /// </summary>
-  public enum AlgorithmEnum
+  public enum Algorithms
   {
     SHA1,
     SHA256
