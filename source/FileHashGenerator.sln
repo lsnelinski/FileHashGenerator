@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{982E75E1-BC94-4F89-BF9B-8233C01427A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App", "App\App.csproj", "{982E75E1-BC94-4F89-BF9B-8233C01427A4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HashGenerator", "HashGenerator\HashGenerator.csproj", "{FC909C4D-ABE9-49F5-97FF-F5C1A750C4B7}"
 EndProject
