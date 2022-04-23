@@ -2,9 +2,9 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace FileHashGenerator
+namespace HashGenerator
 {
-  class FileHashGenerator
+  public class Generator
   {
     #region Variables
     private const string LOG_DIRECTORY = "fileHashGenerator_Log";
@@ -36,7 +36,7 @@ namespace FileHashGenerator
     /// <summary>
     ///   The constructor reads the current app path and creates the hasher enviroment.
     /// </summary>
-    public FileHashGenerator()
+    public Generator()
     {
       _currentAppDirectory = Directory.GetCurrentDirectory();
       CreateHasherEnviroment();
