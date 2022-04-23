@@ -109,7 +109,7 @@ namespace FileHashGenerator
       }
       else
       {
-        throw new Exception($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
+        throw new ArgumentException($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
       }
 
       cryptoProvider.Dispose();
