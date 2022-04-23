@@ -1,6 +1,6 @@
 :: Variables
 set pathToSolution="%cd%\FileHashGenerator.sln"
-set pathToMSBuild="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin"
+set pathToMSBuild="C:\Program Files\Microsoft Visual Studio\2022\Community\Msbuild\Current\Bin\amd64"
 
 :: Restore NuGet
 nuget.exe restore
