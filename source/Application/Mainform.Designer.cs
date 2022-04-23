@@ -1,5 +1,5 @@
 ﻿
-namespace FileHashGenerator
+namespace App
 {
   partial class Mainform
   {

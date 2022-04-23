@@ -1,8 +1,9 @@
-﻿using System;
+﻿using HashGenerator;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace FileHashGenerator
+namespace App
 {
   public partial class Mainform : Form
   {
@@ -17,7 +18,7 @@ namespace FileHashGenerator
 
       try
       {
-        var fileHashGenerator = new FileHashGenerator();
+        var fileHashGenerator = new Generator();
         fileHashGenerator.GenerateHashes(selectedAlgorithm);
 
         var dialogResult = MessageBox.Show("The hashes have been successfully created " +

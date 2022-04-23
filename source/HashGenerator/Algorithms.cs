@@ -1,4 +1,4 @@
-﻿namespace FileHashGenerator
+﻿namespace HashGenerator
 {
   /// <summary>
   ///   The algorithms that the program can use.
