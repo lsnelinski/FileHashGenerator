@@ -13,15 +13,18 @@ namespace FileHashGenerator
 
     private void Generate_Click(object sender, EventArgs e)
     {
+      var selectedAlgorithm = (AlgorithmEnum)Algorithm_cb.SelectedItem;
+
       try
       {
         var fileHashGenerator = new FileHashGenerator();
-        fileHashGenerator.GenerateHashes();
+        fileHashGenerator.GenerateHashes(selectedAlgorithm);
 
-        var result = MessageBox.Show("The hashes have been successfully created " +
+        var dialogResult = MessageBox.Show("The hashes have been successfully created " +
           "and the program will now be closed.\r\nShould the log file be opened in the editor?",
           "Success", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        if (result == DialogResult.Yes)
+
+        if (dialogResult == DialogResult.Yes)
         {
           Process.Start("notepad.exe", fileHashGenerator.LogFileLocation);
         }
@@ -34,6 +37,12 @@ namespace FileHashGenerator
       {
         Close();
       }
+    }
+
+    private void Mainform_Load(object sender, EventArgs e)
+    {
+      var algorithms = Enum.GetValues<AlgorithmEnum>();
+      Algorithm_cb.DataSource = algorithms;
     }
   }
 }
