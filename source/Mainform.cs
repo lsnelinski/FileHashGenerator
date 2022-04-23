@@ -13,7 +13,7 @@ namespace FileHashGenerator
 
     private void Generate_Click(object sender, EventArgs e)
     {
-      var selectedAlgorithm = (AlgorithmEnum)Algorithm_cb.SelectedItem;
+      var selectedAlgorithm = (Algorithms)Algorithm_cb.SelectedItem;
 
       try
       {
@@ -41,7 +41,7 @@ namespace FileHashGenerator
 
     private void Mainform_Load(object sender, EventArgs e)
     {
-      var algorithms = Enum.GetValues<AlgorithmEnum>();
+      var algorithms = Enum.GetValues<Algorithms>();
       Algorithm_cb.DataSource = algorithms;
     }
   }
