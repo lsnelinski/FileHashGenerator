@@ -67,27 +67,52 @@ namespace FileHashGenerator
     }
 
     /// <summary>
-    ///    Generates the file hashes in the current app directory.
+    ///   Generates the file hashes in the current app directory.
     /// </summary>
-    public void GenerateHashes()
+    /// <param name="algorithm">An algorithm corresponding to the <seealso cref="AlgorithmEnum">AlgorithmEnum</seealso>.</param>
+    /// <exception cref="Exception">Throws an exception if the algorithm is unknown.</exception>
+    public void GenerateHashes(AlgorithmEnum algorithm)
     {
-      using (var streamWriter = File.AppendText(LogFileLocation))
-      using (var cryptoProvider = new SHA1CryptoServiceProvider())
+      HashAlgorithm cryptoProvider;
+
+      switch (algorithm)
       {
-        DirectoryInfo directoryInfo = new DirectoryInfo(_currentAppDirectory);
-        FileInfo[] files = directoryInfo.GetFiles();
+        case AlgorithmEnum.SHA1:
+          cryptoProvider = new SHA1CryptoServiceProvider();
+          break;
+        case AlgorithmEnum.SHA256:
+          cryptoProvider = SHA256.Create();
+          break;
+        default:
+          cryptoProvider = null;
+          break;
+      }
 
-        for (int i = 0; i < files.Length; i++)
+      if (cryptoProvider != null)
+      {
+        using (var streamWriter = File.AppendText(LogFileLocation))
         {
-          var currentFile = files[i].Name;
-          byte[] buffer = File.ReadAllBytes(currentFile);
-          string hash = BitConverter.ToString(cryptoProvider.ComputeHash(buffer))
-            .Replace("-", "")
-            .ToUpper();
+          DirectoryInfo directoryInfo = new DirectoryInfo(_currentAppDirectory);
+          FileInfo[] files = directoryInfo.GetFiles();
 
-          streamWriter.WriteLine($@"Hash: {hash} --> File: {currentFile}");
+          for (int i = 0; i < files.Length; i++)
+          {
+            var currentFile = files[i].Name;
+            byte[] buffer = File.ReadAllBytes(currentFile);
+            string hash = BitConverter.ToString(cryptoProvider.ComputeHash(buffer))
+              .Replace("-", "")
+              .ToLower();
+
+            streamWriter.WriteLine($@"{algorithm}-Hash: {hash} --> File: {currentFile}");
+          }
         }
       }
+      else
+      {
+        throw new Exception($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
+      }
+
+      cryptoProvider.Dispose();
     }
 
     #endregion
