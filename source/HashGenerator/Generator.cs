@@ -19,7 +19,7 @@ namespace HashGenerator
     /// </summary>
     public string LogFolderLocation
     {
-      get { return $@"{_currentAppDirectory}\{LOG_DIRECTORY}"; }
+      get { return Path.Combine(_currentAppDirectory, LOG_DIRECTORY); }
     }
 
     /// <summary>
@@ -27,7 +27,7 @@ namespace HashGenerator
     /// </summary>
     public string LogFileLocation
     {
-      get { return $@"{_currentAppDirectory}\{LOG_DIRECTORY}\{LOG_FILENAME}"; }
+      get { return Path.Combine(_currentAppDirectory, LOG_DIRECTORY, LOG_FILENAME); }
     }
 
     #endregion
@@ -84,32 +84,24 @@ namespace HashGenerator
           cryptoProvider = SHA256.Create();
           break;
         default:
-          cryptoProvider = null;
-          break;
+          throw new ArgumentException($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
       }
 
-      if (cryptoProvider != null)
+      using (var streamWriter = File.AppendText(LogFileLocation))
       {
-        using (var streamWriter = File.AppendText(LogFileLocation))
+        DirectoryInfo directoryInfo = new DirectoryInfo(_currentAppDirectory);
+        FileInfo[] files = directoryInfo.GetFiles();
+
+        for (int i = 0; i < files.Length; i++)
         {
-          DirectoryInfo directoryInfo = new DirectoryInfo(_currentAppDirectory);
-          FileInfo[] files = directoryInfo.GetFiles();
+          var currentFile = files[i].Name;
+          byte[] buffer = File.ReadAllBytes(currentFile);
+          string hash = BitConverter.ToString(cryptoProvider.ComputeHash(buffer))
+            .Replace("-", "")
+            .ToLower();
 
-          for (int i = 0; i < files.Length; i++)
-          {
-            var currentFile = files[i].Name;
-            byte[] buffer = File.ReadAllBytes(currentFile);
-            string hash = BitConverter.ToString(cryptoProvider.ComputeHash(buffer))
-              .Replace("-", "")
-              .ToLower();
-
-            streamWriter.WriteLine($@"{algorithm}-Hash: {hash} --> File: {currentFile}");
-          }
+          streamWriter.WriteLine($@"{algorithm}-Hash: {hash} --> File: {currentFile}");
         }
-      }
-      else
-      {
-        throw new ArgumentException($@"The algorithm '{algorithm}' is unknown or has not been implemented yet!");
       }
 
       cryptoProvider.Dispose();
