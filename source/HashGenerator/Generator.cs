@@ -78,7 +78,7 @@ namespace HashGenerator
       switch (algorithm)
       {
         case Algorithms.SHA1:
-          cryptoProvider = new SHA1CryptoServiceProvider();
+          cryptoProvider = SHA1.Create();
           break;
         case Algorithms.SHA256:
           cryptoProvider = SHA256.Create();
