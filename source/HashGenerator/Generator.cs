@@ -9,7 +9,7 @@ namespace HashGenerator
     #region Variables
     private const string LOG_DIRECTORY = "fileHashGenerator_Log";
     private const string LOG_FILENAME = "hashes.log";
-    readonly string _currentAppDirectory;
+    private readonly string _currentAppDirectory;
 
     #endregion
 
@@ -78,7 +78,7 @@ namespace HashGenerator
       switch (algorithm)
       {
         case Algorithms.SHA1:
-          cryptoProvider = new SHA1CryptoServiceProvider();
+          cryptoProvider = SHA1.Create();
           break;
         case Algorithms.SHA256:
           cryptoProvider = SHA256.Create();
