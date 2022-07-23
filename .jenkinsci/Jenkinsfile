@@ -2,9 +2,7 @@ pipeline {
   agent { label 'windows' }
 
   environment {
-    SONARSCANNER = tool 'SonarScannerMSBuild'
     PROJECTNAME = 'FileHashGenerator'
-    SOLUTION = "source\\${PROJECTNAME}.sln"
   }
 
   options {
@@ -27,10 +25,11 @@ pipeline {
     stage('Build & Execute SonarQube analysis') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          bat "nuget restore ${SOLUTION}"
-          bat "dotnet ${SONARSCANNER}\\SonarScanner.MSBuild.dll begin /k:\"${PROJECTNAME}\""
-          bat "dotnet build ${SOLUTION}"
-          bat "dotnet ${SONARSCANNER}\\SonarScanner.MSBuild.dll end"
+          bat "cd ./source && dotnet sonarscanner begin /k:${PROJECTNAME} /d:sonar.host.url=${env.SONAR_HOST_URL} /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
+          bat "cd ./source && nuget restore ${PROJECTNAME}.sln"
+          bat "cd ./source && dotnet build"
+          bat "cd ./source && dotnet test"
+          bat "cd ./source && dotnet sonarscanner end /d:sonar.login=${env.SONAR_AUTH_TOKEN}"
         }
       }
     }
