@@ -27,7 +27,10 @@ namespace App
 
         if (dialogResult == DialogResult.Yes)
         {
-          Process.Start("notepad.exe", fileHashGenerator.LogFileLocation);
+          var process = new Process();
+          process.StartInfo.FileName = @"C:\windows\system32\notepad.exe";
+          process.StartInfo.Arguments = fileHashGenerator.LogFileLocation;
+          process.Start();
         }
       }
       catch (Exception exception)
