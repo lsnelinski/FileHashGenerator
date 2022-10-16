@@ -1,6 +1,9 @@
 # FileHashGenerator
 
 ![GitHub](https://img.shields.io/github/license/lsnelinski/FileHashGenerator)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=lsnelinski_FileHashGenerator&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=lsnelinski_FileHashGenerator)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=lsnelinski_FileHashGenerator&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=lsnelinski_FileHashGenerator)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=lsnelinski_FileHashGenerator&metric=coverage)](https://sonarcloud.io/summary/new_code?id=lsnelinski_FileHashGenerator)
 
 The FileHashGenerator is a small tool which generates a SHA1 or SHA256 hash of all files which are stored in the same directory as the app.
 
