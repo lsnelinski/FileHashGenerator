@@ -46,3 +46,4 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"lsnelinski_FileHashGenerator" /o:"lsnelinski" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build source\FileHashGenerator.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          dotnet test source\FileHashGenerator.sln
